@@ -1,1 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mining Minigame</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: #1e1e1e;
+      color: white;
+    }
+    header, footer {
+      padding: 10px;
+      background: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      background: #222;
+    }
+    .tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .tab:hover {
+      background: #444;
+    }
+    #miningAnimation {
+      font-size: 24px;
+      margin-top: 10px;
+      display: none;
+    }
+    .logo-section {
+      display: flex;
+      align-items: center;
+    }
+    .logo-section img {
+      height: 30px;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-section">
+      <img src="https://via.placeholder.com/30?text=B" alt="Bitra" />
+      <img src="https://via.placeholder.com/30?text=T" alt="Taraxa" />
+      <span>Mining Rewards</span>
+    </div>
+    <div id="timer">Session Ends in: 60s</div>
+  </header>
 
+  <main id="mainContent">
+    <button onclick="startMining()">Daily Check-In</button>
+    <div id="miningAnimation">Mining...</div>
+  </main>
+
+  <footer class="tabs">
+    <div class="tab" onclick="showTab('home')">Home</div>
+    <div class="tab" onclick="showTab('tasks')">Tasks</div>
+    <div class="tab" onclick="showTab('wallet')">Wallet</div>
+  </footer>
+
+  <script>
+    let countdown = 60;
+    const timerElement = document.getElementById('timer');
+    setInterval(() => {
+      if (countdown > 0) {
+        countdown--;
+        timerElement.innerText = `Session Ends in: ${countdown}s`;
+      }
+    }, 1000);
+
+    function startMining() {
+      const anim = document.getElementById('miningAnimation');
+      anim.style.display = 'block';
+      anim.innerText = 'Mining...';
+      setTimeout(() => {
+        anim.innerText = 'You mined some rewards!';
+      }, 3000);
+    }
+
+    function showTab(tab) {
+      const content = document.getElementById('mainContent');
+      if (tab === 'home') {
+        content.innerHTML = `<button onclick="startMining()">Daily Check-In</button><div id="miningAnimation">Mining...</div>`;
+      } else if (tab === 'tasks') {
+        content.innerHTML = `<h2>Task List</h2><ul><li>Task 1</li><li>Task 2</li></ul>`;
+      } else if (tab === 'wallet') {
+        content.innerHTML = `<h2>Submit Wallet</h2><input type='text' placeholder='Enter wallet address'><br><button>Submit</button>`;
+      }
+    }
+  </script>
+</body>
+</html>
